@@ -6,22 +6,22 @@ int func(int qmin, int t);
 void print_m(int *bin, int t,int s);
 void swap(int *bin, int pos1,int pos2,int t, int s);
 void ordem_um(int *matriz,int tami, int tamj);
-
+int dif_vetores(int *matriz,int pos1,int pos2, int tami,int tamj);
 
 int main(){
-	
+
 	int t, i = 0,qmin=0;
-	
+
 	printf("\nNumero de variaveis:");
 	scanf("%d", &t);
-	
+
 	printf("znEntre com a quantidade de mintermo");
 	scanf("%d", &qmin);
-	//recolhe os valores mintermo 
+	//recolhe os valores mintermo
 	func(qmin, t);
-	
-	
-	
+
+
+
 	return 0;
 }
 
@@ -29,9 +29,9 @@ int func(int qmin, int t){
 	//sendo qmin a quantidade de mintermo e t o tamanho do valor binario
 	printf("\nEntre com os valores do mintermo");
 	//t = t+3;
-	int mint[qmin][t+2],j,valor,quantum = 0;//o utimo valor do numero binario é a quatidade de numeros 1 que ele possui
+	int mint[qmin][t+2],j,valor,quantum = 0;//o utimo valor do numero binario ï¿½ a quatidade de numeros 1 que ele possui
  	int i;
-	printf("\nEntre com os valores do mintermo");
+
 	//////////////////////////////////////////////////////
 	//recolhendo os valores da matriz				/////
 	//matriz sera organizada da segunte maneira		////
@@ -39,7 +39,7 @@ int func(int qmin, int t){
 	///////////////////////////////////////////////////
 	 for(i = 0 ; i<qmin; i++){
 	 	quantum = 0;
-	 	printf("\n %d :", i);
+	 	printf("\n %d :", i+1);
 	 	scanf("%d", &valor);
 	 	for(j = t+1; j>=0;j--){
 	 		if(j == 0){
@@ -51,40 +51,48 @@ int func(int qmin, int t){
 	 			mint[i][j] = 0 ;// terminar
 			 }
 			 else{
-			 
+
 	 		mint[i][j] = valor%2;
 	 		valor = (float)valor/ 2;
 	 	}
 	 		if(mint[i][j] == 1){
 	 			quantum ++;
 			 }
-	
-		 } 
-	 }	
+
+		 }
+	 }
 
 	 //quant_um(*mint,t,qmin);
 	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 // a ideia a partir daqui é criar varias matrizes separando os numeros binarios pelas quanidades de numero 1//
-	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	 //sera uma boa ideia também implementar mais um espaço na matriz para definir se o mintermo foi ou não usado//--- por hora definirei -1 caso tenha sido usado
+	 // a ideia a partir daqui ï¿½ criar varias matrizes separando os numeros binarios pelas quanidades de numero 1//
+	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 //sera uma boa ideia tambï¿½m implementar mais um espaï¿½o na matriz para definir se o mintermo foi ou nï¿½o usado//--- por hora definirei -1 caso tenha sido usado
 	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 print_m(*mint, qmin,t+2);//////////////////////////////////////
-	 ordem_um(*mint,qmin, t+2); //// isto é um teste de verficação//
+	 ordem_um(*mint,qmin, t+2); //// isto ï¿½ um teste de verficaï¿½ï¿½o//
 	 ///////////////////////////////////////////////////////////////
-	 
-	 
-   
-	 
-	 
-	 
-	return 0;	
+
+	 dif_vetores(*mint,1,1, qmin,t+2);
+typedef struct{
+	char nome[5];
+	int  variavel[quantum][t+2];
+
+
+}teste;
+
+
+
+
+
+
+	return 0;
 }
 //Funcao que ira retornar quantos um cada  vetor possui
 
 void print_m(int *bin, int t,int s){
 	//funcao para printar a matriz
 	 int i, j,matriza;
-  	
+
   	printf("\n");
   	for(i = 0; i<t;i++){
     	for(j = 0; j<s; j++ ){
@@ -94,11 +102,11 @@ void print_m(int *bin, int t,int s){
   		}
 	}
 
-//função feita para ordenar a matriz conforme a quantidade de 1 
+//funï¿½ï¿½o feita para ordenar a matriz conforme a quantidade de 1
 void ordem_um(int *matriz,int tami, int tamj){
 		int i, j = 0,log = 1;
 		//sera passado o tamanho do i e do j da funcao//
-		///////////////////////////////////////////////	
+		///////////////////////////////////////////////
 		while(log){
 		log = 0;
 			for(i = 0; i<tami-1 ;i++){
@@ -108,32 +116,49 @@ void ordem_um(int *matriz,int tami, int tamj){
 					print_m(matriz, tami,tamj);
 					//sleep(1);
 					log = 1;
-					
-					
-					
+
+
+
 				}
 			}
-			
+
 		}
-	    
-	
+
+
 }
 //inverte uma linha e uma coluna modo de usar()swap(matriz, i1, i2, tamanhoi , tamanho j)
 void swap(int *bin, int pos1,int pos2,int t, int s){
 	//funcao para printar a matriz
 	 int i, j,a;
-  	
-  	
-  	
+
+
+
     	for(j = 0; j<s; j++ ){
-      		a =  *(bin+(pos1*s+j)); 
+      		a =  *(bin+(pos1*s+j));
       		*(bin+(pos1*s+j)) = *(bin+(pos2*s+j));
       		*(bin+(pos2*s+j)) = a;
     		}
-    	
+
   		}
-	
-	//funçao que ira definir a diferença de um entre dois numeros binarios , no caso dois vetores da matriz 
+
+	//funï¿½ao que ira definir a diferenï¿½a de um entre dois numeros binarios , no caso dois vetores da matriz
+	//fucao devera retornar  quantos 1 a de diferenÃ§a entre um binairo e outro
 int dif_vetores(int *matriz,int pos1,int pos2, int tami,int tamj){
-	
+	//para comecar receberemos a matriz e separaremos duas matrizes
+	int i ,i2, j; //sendo i2 e j2 valores referentes as matrizes
+	for(i = 0 ; i<tami;i++){
+		for(i2 = i+1; i2<tami ; i2++){
+			if(((*(matriz+(i*tamj+0)))+1) == (*(matriz+(i2*tamj+0)))){
+				printf("\n%d",*(matriz+(i*tamj+tamj)) );       //esse monte de print Ã© tudoi teste
+
+				printf("\n%d",(*(matriz+(j*tamj+tamj))) );
+				printf("  Ã© igual  " );
+			}
+			else{
+				printf("\n%d",*(matriz+(pos1*tamj+tamj)) );
+				printf("\n%d",(*(matriz+(pos2*tamj+tamj))) );
+				printf("naoigual");
+			}
+		}
+	}
 }
